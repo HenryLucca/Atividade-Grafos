@@ -61,10 +61,10 @@ public class App {
                 Edges e = (Edges)edge.get(j);
                 // If the id is equal to the current node
                 if(e.getOriginNode() == n.getId()) {
-                    System.out.println("-> Ligação para o vértice " + e.getOriginNode() + " com peso " + e.getWeight());
+                    System.out.println("-> Ligação para o vértice " + e.getDestinationNode() + " com peso " + e.getWeight());
                 }
                 else if(e.getDestinationNode()==n.getId()) {
-                    System.out.println("-> Ligação do vértice " + e.getDestinationNode() + " com peso " + e.getWeight());
+                    System.out.println("-> Ligação do vértice " + e.getOriginNode() + " com peso " + e.getWeight());
                 }
             }
         }
