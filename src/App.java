@@ -55,13 +55,16 @@ public class App {
         // Parse Nodes
         for(int i = 0; i < node.size(); i++) {
             Nodes n = (Nodes)node.get(i);
+            System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");
             // Parse Edges
             for(int j = 0; j < edge.size(); j++) {
                 Edges e = (Edges)edge.get(j);
                 // If the id is equal to the current node
-                if(e.getId() == n.getId()) {
-                    System.out.println("O nó " + n.getName() + " tem origem no nó " + e.getOriginNode() + 
-                    " e destino no nó " + e.getDestinationNode() + " e tem peso " + e.getWeight());
+                if(e.getOriginNode() == n.getId()) {
+                    System.out.println("-> Ligação para o vértice " + e.getOriginNode() + " com peso " + e.getWeight());
+                }
+                else if(e.getDestinationNode()==n.getId()) {
+                    System.out.println("-> Ligação do vértice " + e.getDestinationNode() + " com peso " + e.getWeight());
                 }
             }
         }
