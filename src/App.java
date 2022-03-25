@@ -61,6 +61,31 @@ public class App {
                 Edges e = (Edges)edge.get(j);
                 // If the id is equal to the current node
                 if(e.getOriginNode() == n.getId()) {
+                    n.addAdjacent(e.getDestinationNode(), e.getWeight());
+                }
+            }
+        }
+    }
+    public static void printAdjacents(LinkedList<Nodes> node){
+        for(int i = 0; i < node.size(); i++) {
+            Nodes n = (Nodes)node.get(i);
+            System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");
+            for(int j = 0; j < n.adjacent.length; j++) {
+                System.out.println("Vértice adjacente: " + n.adjacent[j].getId() + " Peso: " + n.adjacent[j].getWeight());
+            }
+        }
+    }
+    /*
+    public static void adjacentNodes(LinkedList<Nodes> node, LinkedList<Edges> edge){
+        // Parse Nodes
+        for(int i = 0; i < node.size(); i++) {
+            Nodes n = (Nodes)node.get(i);
+            System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");
+            // Parse Edges
+            for(int j = 0; j < edge.size(); j++) {
+                Edges e = (Edges)edge.get(j);
+                // If the id is equal to the current node
+                if(e.getOriginNode() == n.getId()) {
                     System.out.println("-> Ligação para o vértice " + e.getDestinationNode() + " com peso " + e.getWeight());
                 }
                 else if(e.getDestinationNode()==n.getId()) {
@@ -68,5 +93,5 @@ public class App {
                 }
             }
         }
-    }
+    }*/
 }
