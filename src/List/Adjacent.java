@@ -1,14 +1,15 @@
+package List;
 public class Adjacent {
     int id;
-    int weight;
-    public Adjacent(int id, int weight) {
+    double weight;
+    public Adjacent(int id, double weight2) {
         this.id = id;
-        this.weight = weight;
+        this.weight = weight2;
     }
     public int getId(){
         return this.id;
     }
-    public int getWeight(){
+    public double getWeight(){
         return this.weight;
     }
 }

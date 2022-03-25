@@ -49,13 +49,14 @@ public class App {
             e.printStackTrace();
         }
         adjacentNodes(listNode, listEdges);
+        printAdjacents(listNode);
+        System.out.println("");
         
     }
     public static void adjacentNodes(LinkedList<Nodes> node, LinkedList<Edges> edge){
         // Parse Nodes
         for(int i = 0; i < node.size(); i++) {
             Nodes n = (Nodes)node.get(i);
-            System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");
             // Parse Edges
             for(int j = 0; j < edge.size(); j++) {
                 Edges e = (Edges)edge.get(j);
@@ -69,9 +70,10 @@ public class App {
     public static void printAdjacents(LinkedList<Nodes> node){
         for(int i = 0; i < node.size(); i++) {
             Nodes n = (Nodes)node.get(i);
-            System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");
-            for(int j = 0; j < n.adjacent.length; j++) {
-                System.out.println("Vértice adjacente: " + n.adjacent[j].getId() + " Peso: " + n.adjacent[j].getWeight());
+            System.out.println(" ");
+            System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");      
+            for(int j = 0; j < n.getAdjacent().length; j++) {
+                System.out.println("Vértice adjacente: " + n.getAdjacent()[j].getId() + " Peso: " + n.getAdjacent()[j].getWeight());
             }
         }
     }

@@ -1,18 +1,18 @@
 package List;
-import Adjacent;
 
 public class Nodes {
     int id;
     String name;
-    Adjacent[0] adjacent;
+    Adjacent[] adj;
     public Nodes(int id, String name){
         this.id = id;
         this.name = name;
+        this.adj = new Adjacent[0];
     }
-    // public Nodes(int[] adjacent){
-    //     this.adjacent = new Adjacent[adjacent.length];
-    //     for(int i = 0; i < adjacent.length; i++){
-    //         this.adjacent[i] = new Adjacent(adjacent[i], 1);
+    // public Nodes(int[] adj){
+    //     this.adj = new Adjacent[adj.length];
+    //     for(int i = 0; i < adj.length; i++){
+    //         this.adj[i] = new Adjacent(adj[i], 1);
     //     }
     // }
     public int getId(){
@@ -21,12 +21,15 @@ public class Nodes {
     public String getName(){
         return this.name;
     }
-    public void addAdjacent(int id, int weight){
-        Adjacent[] newAdjacent = new Adjacent[this.adjacent.length + 1];
-        for(int i = 0; i < this.adjacent.length; i++){
-            newAdjacent[i] = this.adjacent[i];
+    public Adjacent[] getAdjacent(){
+        return this.adj;
+    }
+    public void addAdjacent(int id, double weight){
+        Adjacent[] newAdjacent = new Adjacent[this.adj.length + 1];
+        for(int i = 0; i < this.adj.length; i++){
+            newAdjacent[i] = this.adj[i];
         }
-        newAdjacent[this.adjacent.length] = new Adjacent(id, weight);
-        this.adjacent = newAdjacent;
+        newAdjacent[this.adj.length] = new Adjacent(id, weight);
+        this.adj = newAdjacent;
     }
 }
