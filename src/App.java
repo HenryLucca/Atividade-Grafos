@@ -53,20 +53,18 @@ public class App {
         System.out.println("");
         
     }
-    public static void adjacentNodes(LinkedList<Nodes> node, LinkedList<Edges> edge){
-        // Parse Nodes
-        for(int i = 0; i < node.size(); i++) {
-            Nodes n = (Nodes)node.get(i);
-            // Parse Edges
-            for(int j = 0; j < edge.size(); j++) {
-                Edges e = (Edges)edge.get(j);
-                // If the id is equal to the current node
-                if(e.getOriginNode() == n.getId()) {
-                    n.addAdjacent(e.getDestinationNode(), e.getWeight());
+    public static void adjacentNodes(LinkedList<Nodes> listNode, LinkedList<Edges> listEdges){
+        for(int i = 0; i < listNode.size(); i++){
+            Nodes node = listNode.get(i);
+            for(int j = 0; j < listEdges.size(); j++){
+                Edges edge = listEdges.get(j);
+                if(edge.getOriginNode() == node.getId()){
+                    node.addAdjacent(edge.getDestinationNode(), edge.getWeight());
                 }
             }
         }
     }
+
     public static void printAdjacents(LinkedList<Nodes> node){
         for(int i = 0; i < node.size(); i++) {
             Nodes n = (Nodes)node.get(i);
@@ -77,23 +75,4 @@ public class App {
             }
         }
     }
-    /*
-    public static void adjacentNodes(LinkedList<Nodes> node, LinkedList<Edges> edge){
-        // Parse Nodes
-        for(int i = 0; i < node.size(); i++) {
-            Nodes n = (Nodes)node.get(i);
-            System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");
-            // Parse Edges
-            for(int j = 0; j < edge.size(); j++) {
-                Edges e = (Edges)edge.get(j);
-                // If the id is equal to the current node
-                if(e.getOriginNode() == n.getId()) {
-                    System.out.println("-> Ligação para o vértice " + e.getDestinationNode() + " com peso " + e.getWeight());
-                }
-                else if(e.getDestinationNode()==n.getId()) {
-                    System.out.println("-> Ligação do vértice " + e.getOriginNode() + " com peso " + e.getWeight());
-                }
-            }
-        }
-    }*/
 }
