@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-
 public class App {
     public static void main(String[] args) throws Exception {
         File file;
@@ -48,11 +47,15 @@ public class App {
             System.out.println("An error occured reading 'vertices.txt'");
             e.printStackTrace();
         }
+
         adjacentNodes(listNode, listEdges);
-        printAdjacents(listNode);
+        //printAdjacents(listNode);
         System.out.println("");
+        BuscaEmExtensão busca = new BuscaEmExtensão(listNode, listNode.get(0));
+        busca.busca(listNode, listNode.get(0));
         
     }
+    
     public static void adjacentNodes(LinkedList<Nodes> listNode, LinkedList<Edges> listEdges){
         for(int i = 0; i < listNode.size(); i++){
             Nodes node = listNode.get(i);
@@ -71,8 +74,11 @@ public class App {
             System.out.println(" ");
             System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");      
             for(int j = 0; j < n.getAdjacent().length; j++) {
-                System.out.println("Vértice adjacente: " + n.getAdjacent()[j].getId() + " Peso: " + n.getAdjacent()[j].getWeight());
+                Nodes adjacentNode = n.getAdjacent()[j];
+                System.out.println("Vértice adjacente: " + adjacentNode.getId() + " Peso: " + adjacentNode.getWeight());
             }
         }
     }
+
+    
 }
