@@ -63,6 +63,8 @@ public class App {
                 Edges edge = listEdges.get(j);
                 if(edge.getOriginNode() == node.getId()){
                     node.addAdjacent(edge.getDestinationNode(), edge.getWeight());
+                } else if(edge.getDestinationNode() == node.getId()){
+                    node.addAdjacent(edge.getOriginNode(), edge.getWeight());
                 }
             }
         }

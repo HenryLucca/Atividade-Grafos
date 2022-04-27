@@ -6,6 +6,7 @@ public class Nodes implements Comparable<Nodes>{
 
     Nodes[] adj = new Nodes[0];
     double weight;
+    
     public Nodes(int id, String name){
         this.id = id;
         this.name = name;

@@ -12,9 +12,7 @@ public class BuscaEmExtensão {
         this.node = node;
     }
 
-    public void busca(LinkedList<Nodes> graph, Nodes node){
-
-        int nodeIndex = graph.indexOf(node);
+    public void busca(LinkedList<Nodes> graph, Nodes node){        
 
         // LinkedList<Integer> color = new LinkedList<Integer>();
         // // Branco = 0
@@ -22,15 +20,17 @@ public class BuscaEmExtensão {
         // // Preto = 2
         // LinkedList<Double> distance = new LinkedList<Double>();
         // LinkedList<Nodes> ante = new LinkedList<Nodes>();
+
         int [] color = new int[graph.size()];
         double [] distance = new double[graph.size()];
         Nodes [] ante = new Nodes[graph.size()];
 
+        // índice do vérice passado como parâmetro
+        int nodeIndex = graph.indexOf(node);
 
         for(int i = 0; i < graph.size(); i++){
             color[i] = 0;
-            distance[i] = Double.MAX_VALUE;
-            ante[i] = null;
+            distance[i] = -1;
         }
 
         color[nodeIndex] = 1;
@@ -39,64 +39,63 @@ public class BuscaEmExtensão {
         PriorityQueue <Nodes> queue = new PriorityQueue<Nodes>();
         queue.add(node);
 
-    //     cor[] : guarda a cor de cada vértice
-
-    //      d[] : guarda o comprimento (distância) do
-    //      caminho desde s até um vértice qualquer
-       
-    //      ante[]: guarda o antecessor de cada vértice,
-    //      no caminho de s até ele
-       
-    //      Ou seja, ante[u] guarda o antecessor de u no
-    //      caminho
-
         while( !queue.isEmpty() ){
-
-            System.out.println("Entrei no While");
-
-            // u : vértice atual
-            // uIndex : índice do vértice atual
             Nodes u = queue.poll();
-            int uIndex = graph.indexOf(u);
-            System.out.println("uIndex: " + uIndex);
+            System.out.println("Nó no topo da fila : " + u.getId());
 
-            System.out.println("print [ adjacentes de U.lenght - 1 ]  : " + (graph.get(uIndex).getAdjacent().length -1));
-            System.out.println(" ");
+            for( Nodes v : u.getAdjacent()){
+                System.out.println("Id do Adjacente : " + v.getId());
+                int vIndex = v.getId()-1;
 
-            for(int i = 0; i < u.getAdjacent().length; i++){
-                
-                // v : vértice adjacente de u
-                // vIndex : índice do vértice adjacente de u
-                Nodes v = graph.get(uIndex).getAdjacent()[i];
-                System.out.println("Vértice adjacente: " + v.getId());
-
-                int vIndex = graph.indexOf(v);
-
-                System.out.println("vIndex color : " + color[vIndex] );
-
-                if(color[vIndex] == 0){
-                    System.out.println("skip");
-                    color[vIndex] = 1;
-                    distance[vIndex] = distance[uIndex] + graph.get(uIndex).getWeight();
+                if ( color[vIndex] == 0 ){
+                    color[vIndex] = 1;   
                     ante[vIndex] = u;
+
+                    // Se tiver inicializado como -1, ao adicionar vai pra 1, se não, só adicina mais 1
+                    if ( distance[vIndex] == -1 ){
+                        distance[vIndex] = distance[u.getId()-1] + 2;
+                    } else {
+                        distance[vIndex] = distance[u.getId()-1] + 1;
+                    }
+                    
                     queue.add(v);
+
+                    System.out.println("V.getName : " + v.getId());
+                    System.out.println("Topo da fila : " + queue.peek());
                 }
-
             }
-            
 
-            color[uIndex] = 2;
+            
+            color[u.getId()-1] = 2;
+        }
+
+        System.out.println("");
+        
+        // Printar o Algoritmo de Busca do vértice passado como parâmetro
+        for(int k = 0; k < graph.size(); k++){
+            System.out.println(" Color : " + color[k]);
+            //System.out.println(" Antecessor : " + ante[k].getName());
+            System.out.println(" Distancia : " + distance[k]);
         }
         
-        for(int i = 0; i < graph.size(); i++){
-            System.out.println("Indice : " + i);
-            System.out.println("Cor indice : " + color[i]);
-            System.out.println("Distância indice : " + distance[i]);
-            System.out.println("Antecessor indice : " + ante[i]);
-            System.out.println(" ");
-        }
     }
 }
+
+// BFS (grafo G, vértice s)
+// para cada vértice u
+// cor[u] = BRANCO; d[u] = ; ante[u] = NIL;
+// cor[s] = CINZA; d[s] = 0;
+// Enfileira(Q, s);
+// While ( ! EstahVazia(Q) )
+// u = Desenfileira(Q);
+// para cada v na lista Adj[u]
+// if (cor[v] == BRANCO)
+// cor[v] = CINZA; d[v] = d[u]+1; ante[v] = u;
+// Enfileira (v, Q);
+
+// cor[u] = PRETO;
+
+
             // do{
             //     i = 0;
                 
