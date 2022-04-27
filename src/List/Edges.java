@@ -4,8 +4,8 @@ public class Edges {
     int id;
     int originNode;
     int destinationNode;
-    double weight;
-    public Edges(int id, int originNode, int destinationNode, double weight) {
+    int weight;
+    public Edges(int id, int originNode, int destinationNode, int weight) {
         this.id = id;
         this.originNode = originNode;
         this.destinationNode = destinationNode;
@@ -20,7 +20,7 @@ public class Edges {
     public int getDestinationNode(){
         return this.destinationNode;
     }
-    public double getWeight(){
+    public int getWeight(){
         return this.weight;
     }
 
