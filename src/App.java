@@ -12,6 +12,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         File file;
         Scanner reader;
+        int resp = 1;
         // Lists
         LinkedList<Nodes> listNode = new LinkedList<Nodes>();
         LinkedList<Edges> listEdges = new LinkedList<Edges>();
@@ -46,7 +47,7 @@ public class App {
                 Nodes node = new Nodes(id, name );
                 listNode.add(node);
             }
-            reader.close();
+            
         }catch(FileNotFoundException e){
             System.out.println("An error occured reading 'vertices.txt'");
             e.printStackTrace();
@@ -59,70 +60,99 @@ public class App {
         }
 
         setAdjacentNodes(listNode, listEdges, graph);
-        int source = 22;
 
-        // Get Dijkstra Result 
-        // ResDijkstra resultDijkstra = dijkstra(tamanho, graph, source);
-        // int[] distanceDijkstra = resultDijkstra.getDistance();
-        // int[] antDijkstra = resultDijkstra.getAnt();
+        // Menu
+        while(resp != 0){
+            reader = new Scanner(System.in);
+            System.out.println(" ");
+            System.out.println("Escolha o método que quer visualizar : ");
+            System.out.println("1 - Dijkstra");
+            System.out.println("2 - Busca em Profundidade");
+            System.out.println("3 - Exibir Grafo");
+            System.out.println("0 - Sair");
+            resp = reader.nextInt();
+            int source;
+            System.out.println(" ");
+            switch(resp){
+                case 1:
 
-        // //Get Width Result
-        // ResLargura resultWidth = buscaEmLargura(tamanho, graph, source);
-        // int [] distanceWidth = resultWidth.getDistance();
-        // int [] antWidth = resultWidth.getAnt();
+                    System.out.println("Escolha o nó de origem : ");
+                    source = reader.nextInt();
+                    // Get Dijkstra Result
+                    ResDijkstra resultDijkstra = dijkstra(tamanho, graph, source);
+                    int[] distanceDijkstra = resultDijkstra.getDistance();
+                    int[] antDijkstra = resultDijkstra.getAnt();
+                    
+                    /////////////////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////// PRINT DIJKSTRA RESULT/////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////////////////
 
+                    for(int i = 0; i < tamanho; i++){
+                        System.out.println("");
+                        // Se for um vertice inacessivel
+                        if(distanceDijkstra[i] == Integer.MAX_VALUE){
+                            System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para" +
+                            " o vertice " +source+": INFINITO (inacessível)" );
+                            System.out.println("Caminho: " + "Não existe caminho");
+                        }
+                        // Se for i for source
+                        else if( listNode.get(i).getId() == source){
+                            System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para " +
+                            "o vertice "+source+ " : 0 " );
+                        }
+                        // Se i for seguinte a source
+                        else if(listNode.get(i).getId() == source+1){
+                            System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para " +
+                            "o vertice "+source+": " + (distanceDijkstra[i] + Integer.MAX_VALUE ) );
+                            System.out.println("Caminho: " + antDijkstra[i]);
+                        }
+                        // Caso geral
+                        else {
+                            System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para " +
+                            "o vertice "+source+": " + ( distanceDijkstra[i] + Integer.MAX_VALUE + 2 ) );
+                            System.out.println("Caminho: " + antDijkstra[i]);
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("Escolha o nó de origem : ");
+                    source = reader.nextInt();
 
+                    //Get Largura Result
+                    ResLargura resultWidth = buscaEmLargura(tamanho, graph, source);
+                    int [] distanceWidth = resultWidth.getDistance();
+                    int [] antWidth = resultWidth.getAnt();
 
-        /////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////// PRINT DIJKSTRA RESULT ////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////////////
-        
-        // for(int i = 0; i < tamanho; i++){
-        //     System.out.println("");
-        //     // Se for um vertice inacessivel
-        //     if(distanceDijkstra[i] == Integer.MAX_VALUE){
-        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+": INFINITO (inacessível)" );
-        //         System.out.println("Caminho: " + "Não existe caminho");
-        //     } 
-        //     // Se for i for source
-        //     else if( listNode.get(i).getId() == source){
-        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+ " : 0 "  );
-        //     } 
-        //     // Se i for seguinte a source
-        //     else if(listNode.get(i).getId() == source+1){
-        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+": " + (distanceDijkstra[i] + Integer.MAX_VALUE )  );
-        //         System.out.println("Caminho: " + antDijkstra[i]);
-        //     } 
-        //     // Caso geral
-        //     else {
-        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+": " + ( distanceDijkstra[i] + Integer.MAX_VALUE + 2  )  );
-        //         System.out.println("Caminho: " + antDijkstra[i]);
-        //     }
-        // }
-        
-        // /////////////////////////////////////////////////////////////////////////////////////////
-        // ////////////////////////// PRINT largura RESULT /////////////////////////////////////////
-        // /////////////////////////////////////////////////////////////////////////////////////////
-        
-        // for(int i = 0; i < tamanho; i++){
-        //     System.out.println("");
-        //     // Se for um vertice inacessivel
-        //     if(distanceWidth[i] == Integer.MAX_VALUE){
-        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+": INFINITO (inacessível)" );
-        //         System.out.println("Caminho: " + "Não existe caminho");
-        //     }
-        //     // Se for i for source
-        //     else if( listNode.get(i).getId() == source){
-        //         System.out.println(" ");
-        //     } 
-        //     // Caso Geral
-        //     else {
-        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+ " : " + distanceWidth[i] );
-        //         System.out.println("Caminho: " + antWidth[i]);
-        //     }
-        // }
-        
-        printAdjacents(graph);
+                    ////////////////////////////////////////////////////////////////////////////////////////////
+                    // ////////////////////////// PRINT largura RESULT /////////////////////////////////////////
+                    // /////////////////////////////////////////////////////////////////////////////////////////
+                    
+                    for(int i = 0; i < tamanho; i++){
+                        System.out.println("");
+                        // Se for um vertice inacessivel
+                        if(distanceWidth[i] == Integer.MAX_VALUE){
+                            System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+": INFINITO (inacessível)" );
+                            System.out.println("Caminho: " + "Não existe caminho");
+                        }
+                        // Se for i for source
+                        else if( listNode.get(i).getId() == source){
+                            System.out.println(" ");
+                        } 
+                        // Caso Geral
+                        else {
+                            System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+ " : " + distanceWidth[i] );
+                            System.out.println("Caminho: " + antWidth[i]);
+                        }
+                    }
+                    break;
+                case 3: printAdjacents(graph); break;
+                case 0: break;
+                default: System.out.println("Opção inválida");
+            
+            }
+
+        }
+
         System.out.println("");
         
     }
@@ -151,6 +181,7 @@ public class App {
     }
 
     public static void printAdjacents(ArrayList<ArrayList<AdjListNode>> graph){
+        System.out.println("(ID, PesoDaLigação)");
         // Percorrer vértices
         for (int i = 0; i < graph.size(); i++){
             System.out.print("Vertice " + i + " possui os adjacentes : ");
