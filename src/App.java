@@ -1,6 +1,7 @@
 import List.*;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,36 +60,73 @@ public class App {
 
         setAdjacentNodes(listNode, listEdges, graph);
         int source = 22;
-        ResDijkstra resultDijkstra = dijkstra(tamanho, graph, source);
-        int[] distanceDijkstra = resultDijkstra.getDistance();
-        int[] antDijkstra = resultDijkstra.getAnt();
 
-        for(int i = 0; i < tamanho; i++){
-            System.out.println("");
-            // Se for um vertice inacessivel
-            if(distanceDijkstra[i] == Integer.MAX_VALUE){
-                System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+": INFINITO (inacessível)" );
-                System.out.println("Caminho: " + "Não existe caminho");
-            } 
-            // Se for i for source
-            else if( listNode.get(i).getId() == source){
-                System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+ " : 0 "  );
-            } 
-            // Se i for seguinte a source
-            else if(listNode.get(i).getId() == source+1){
-                System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+": " + (distanceDijkstra[i] + Integer.MAX_VALUE )  );
-                System.out.println("Caminho: " + antDijkstra[i]);
-            } 
-            // Caso geral
-            else {
-                System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+": " + ( distanceDijkstra[i] + Integer.MAX_VALUE + 2  )  );
-                System.out.println("Caminho: " + antDijkstra[i]);
-            }
-        }
-        //printAdjacents(listNode);
+        // Get Dijkstra Result 
+        // ResDijkstra resultDijkstra = dijkstra(tamanho, graph, source);
+        // int[] distanceDijkstra = resultDijkstra.getDistance();
+        // int[] antDijkstra = resultDijkstra.getAnt();
+
+        // //Get Width Result
+        // ResLargura resultWidth = buscaEmLargura(tamanho, graph, source);
+        // int [] distanceWidth = resultWidth.getDistance();
+        // int [] antWidth = resultWidth.getAnt();
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////// PRINT DIJKSTRA RESULT ////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////
+        
+        // for(int i = 0; i < tamanho; i++){
+        //     System.out.println("");
+        //     // Se for um vertice inacessivel
+        //     if(distanceDijkstra[i] == Integer.MAX_VALUE){
+        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+": INFINITO (inacessível)" );
+        //         System.out.println("Caminho: " + "Não existe caminho");
+        //     } 
+        //     // Se for i for source
+        //     else if( listNode.get(i).getId() == source){
+        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+ " : 0 "  );
+        //     } 
+        //     // Se i for seguinte a source
+        //     else if(listNode.get(i).getId() == source+1){
+        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+": " + (distanceDijkstra[i] + Integer.MAX_VALUE )  );
+        //         System.out.println("Caminho: " + antDijkstra[i]);
+        //     } 
+        //     // Caso geral
+        //     else {
+        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice "+source+": " + ( distanceDijkstra[i] + Integer.MAX_VALUE + 2  )  );
+        //         System.out.println("Caminho: " + antDijkstra[i]);
+        //     }
+        // }
+        
+        // /////////////////////////////////////////////////////////////////////////////////////////
+        // ////////////////////////// PRINT largura RESULT /////////////////////////////////////////
+        // /////////////////////////////////////////////////////////////////////////////////////////
+        
+        // for(int i = 0; i < tamanho; i++){
+        //     System.out.println("");
+        //     // Se for um vertice inacessivel
+        //     if(distanceWidth[i] == Integer.MAX_VALUE){
+        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+": INFINITO (inacessível)" );
+        //         System.out.println("Caminho: " + "Não existe caminho");
+        //     }
+        //     // Se for i for source
+        //     else if( listNode.get(i).getId() == source){
+        //         System.out.println(" ");
+        //     } 
+        //     // Caso Geral
+        //     else {
+        //         System.out.println("Distancia do vertice " + listNode.get(i).getId() + " para o vertice " +source+ " : " + distanceWidth[i] );
+        //         System.out.println("Caminho: " + antWidth[i]);
+        //     }
+        // }
+        
+        printAdjacents(graph);
         System.out.println("");
         
     }
+
     public static void setAdjacentNodes(LinkedList<Nodes> listNode, LinkedList<Edges> listEdges, ArrayList<ArrayList<AdjListNode> > graph ){
         for(int i = 0; i < listNode.size(); i++){
             Nodes node = listNode.get(i);
@@ -112,16 +150,25 @@ public class App {
         }
     }
 
-    // public static void printAdjacents(LinkedList<Nodes> node){
-    //     for(int i = 0; i < node.size(); i++) {
-    //         Nodes n = (Nodes)node.get(i);
-    //         System.out.println(" ");
-    //         System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");      
-    //         for(int j = 0; j < n.getAdjacent().length; j++) {
-    //             System.out.println("Vértice adjacente: " + n.getAdjacent()[j].getId() + " Peso: " + n.getAdjacent()[j].getWeight());
-    //         }
-    //     }
-    // }
+    public static void printAdjacents(ArrayList<ArrayList<AdjListNode>> graph){
+        // Percorrer vértices
+        for (int i = 0; i < graph.size(); i++){
+            System.out.print("Vertice " + i + " possui os adjacentes : ");
+            // Percorrer adjacentes
+            for (int j = 0; j < graph.get(i).size(); j++){
+                System.out.print("(" + graph.get(i).get(j).getVertex() + "," + graph.get(i).get(j).getWeight() + ") ");
+            }
+            System.out.println("");
+        }
+        // for(int i = 0; i < node.size(); i++) {
+        //     Nodes n = (Nodes)node.get(i);
+        //     System.out.println(" ");
+        //     System.out.println("O vértice " + n.getName() + " possui os seguintes vértices adjacentes: ");      
+        //     for(int j = 0; j < n.getAdjacent().length; j++) {
+        //         System.out.println("Vértice adjacente: " + n.getAdjacent()[j].getId() + " Peso: " + n.getAdjacent()[j].getWeight());
+        //     }
+        // }
+    }
 
     public static ResDijkstra dijkstra(
         int V, ArrayList<ArrayList<AdjListNode> > graph,
@@ -136,7 +183,7 @@ public class App {
         PriorityQueue<AdjListNode> pq = new PriorityQueue<>((v1, v2) -> v1.getWeight() - v2.getWeight());
         pq.add(new AdjListNode(source, 0));
  
-        while (pq.size() > 0) {
+        while (!pq.isEmpty()) {
 
             AdjListNode current = pq.poll();
             ArrayList<AdjListNode> listaDoVertice = graph.get(current.getVertex()-1);
@@ -160,4 +207,59 @@ public class App {
         return res;
     }
     
+    public static ResLargura buscaEmLargura(
+        int V, ArrayList<ArrayList<AdjListNode> > graph,
+        int source){
+
+            int[] distance = new int[V];
+            int[] ant = new int[V];
+            int[] color = new int[V];
+            // COLOR
+            // 1 = BRANCO
+            // 2 = CINZA
+            // 3 = PRETO
+            
+            // Inicializar cor e distancia
+            for (int i = 0; i < V; i++) {
+                distance[i] = -1;
+                color[i] = 1;
+                ant[i] = -1;
+            }
+            distance[source-1] = 0;
+            color[source-1] = 0;
+
+            ArrayList<AdjListNode> sourceNode = graph.get(source-1);
+
+            Queue<ArrayList<AdjListNode>> q = new LinkedList<ArrayList<AdjListNode>>();
+            q.add(sourceNode);
+
+            // enquanto a fila nao esta vazia
+            while(!q.isEmpty()){
+                ArrayList<AdjListNode> n = q.poll();
+                int indexN = graph.indexOf(n);
+
+                // Para todo v em adj[n]
+                for( AdjListNode v : n){
+                    int indexV = v.getVertex() - 1;
+                    // Se for branco
+                    if(color[indexV] == 1){
+                        //Adiciona v no fim da fila
+                        q.add(graph.get(indexV));
+                        color[indexV] = 2;
+                        distance[indexV] = distance[indexN] + 1;
+                        ant[indexV] = indexN + 1;
+                    }
+
+                }
+                color[indexN] = 3;
+            }
+
+            
+            distance[source-1] = 0;
+            ant[source-1] = 0;
+            ResLargura res = new ResLargura(distance, ant);
+            return res;
+        }
+
 }
+ 
